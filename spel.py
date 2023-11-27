@@ -1,12 +1,21 @@
 import random as rand
-
+ 
+  i = 0
+    while i < len(backpack)
+        print(backpack[i])
+        i += 1
 
 def main():
 
     print("Hello traveler, you have been captured. To escape this maze you will have to choose the right door.")
     playername = input("What is your name?")
     playerhp = 100
-    playerstrength = 10
+    playerstrength = 10 
+
+    backpack = ["svärd","brygd","fackla"]
+
+  
+
 
     print(f"""Hello {playername} you have {playerstrength} strength and {playerhp} hp.
             We have done some research in the maze and there is a lot of different creatures roaming different areas of the maze. 
@@ -24,15 +33,14 @@ def main():
         val = input()
 
         if val == "1":
-            print("""which door? :)
+            print("""Which door?
                   1 = door one
-                  2 = door two
+                  2 = door twop
                   3 = door three""")
             val = input()
 
             if val == "1":
-                print("Hejsan")
-            
+                
             elif val == "2":
                 print("Hejdå")
             
@@ -40,10 +48,12 @@ def main():
                 print("Godmorgon")
         
         elif val == "2":
-            print("Backpack")
+            print(backpack)
         
-        else: 
-            print("stats")
+        elif val == "3":
+            print("Stats")¨
+        else:
+
 
 main()
     # hjältestr=10
