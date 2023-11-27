@@ -35,7 +35,7 @@ def main():
         if val == "1":
             print("""Which door?
                   1 = door one
-                  2 = door twop
+                  2 = door two
                   3 = door three""")
             val = input()
 
@@ -51,7 +51,7 @@ def main():
             print(backpack)
         
         elif val == "3":
-            print("Stats")¨
+            print("Stats")
         else:
 
 
