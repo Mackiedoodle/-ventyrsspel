@@ -1,9 +1,22 @@
 import random as rand
  
-  i = 0
-    while i < len(backpack)
-        print(backpack[i])
-        i += 1
+#  backpack är inte klar än
+backpack = ["svärd","brygd","fackla"]
+
+   # inte klar med monster
+def monster()
+    monsterhp = rand.randint(40,130)
+    monsterstrength = rand.randint(7,25)
+    monstercolor = rand.choice("darkred", "brown", "albino")
+#  strid är inte färdigt än
+def strid(playerhp, monsterhp):
+    if playerhp >= monsterhp:
+        print("du vann")
+    else:
+        print("du förlorade")
+# ej klar behind_door
+def behind_door(playerhp, monsterhp, playerstrength, monsterstrength, backpack):
+    händelser = list[monster, crate, trap]
 
 def main():
 
@@ -11,17 +24,21 @@ def main():
     playername = input("What is your name?")
     playerhp = 100
     playerstrength = 10 
+    
+    i = 0
 
-    backpack = ["svärd","brygd","fackla"]
+    while i < len(backpack):
+        print(backpack[i])
+        i += 1
 
   
 
 
     print(f"""Hello {playername} you have {playerstrength} strength and {playerhp} hp.
             We have done some research in the maze and there is a lot of different creatures roaming different areas of the maze. 
-            You will fight against Skeletons, mutaded bats, flesh eating hog.
+            There is huge serpents, mutaded bats, flesh eating hogs.
             You will have to fight them or they will kill you. 
-            There is also crates and trapes all around the maze.""")
+            You will also discover crates which contains loot that you can use in battles. The maze is also full of traps so keep your eyes open.""")
 
 
     while playerhp >= 0:
@@ -33,26 +50,31 @@ def main():
         val = input()
 
         if val == "1":
-            print("""Which door?
-                  1 = door one
-                  2 = door two
-                  3 = door three""")
-            val = input()
+            doorchoser()
 
-            if val == "1":
-                
-            elif val == "2":
-                print("Hejdå")
-            
-            else:
-                print("Godmorgon")
-        
-        elif val == "2":
-            print(backpack)
-        
-        elif val == "3":
-            print("Stats")
+
+
+def doorchoser():
+
+    print("""Which door?
+        1 = door one
+        2 = door two
+        3 = door three""")
+    
+    val = input()
+
+    
+
+    if val == "1" or val == "2" or val == "3":
+        slumptal = rand.randint(1,3)
+        if slumptal == 1:
+            print("It's a MONSTER!!! you have to fight it.")
+            strid(playerhp, monsterhp)
+        elif slumptal == 2:
+            print("OOoh look it's a crate!")
         else:
+            print("Oh no whatout it's a trap")    
+   
 
 
 main()
