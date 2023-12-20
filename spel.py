@@ -1,60 +1,130 @@
 import random as rand
- 
-#  backpack är inte klar än
-backpack = ["svärd","brygd","fackla"]
+import time
 
-   # inte klar med monster
-def monster()
-    monsterhp = rand.randint(40,130)
-    monsterstrength = rand.randint(7,25)
-    monstercolor = rand.choice("darkred", "brown", "albino")
-#  strid är inte färdigt än
-def strid(playerhp, monsterhp):
-    if playerhp >= monsterhp:
-        print("du vann")
+class monstercreator:
+    def __init__(self, hp, strength, color, name):
+        self.hp = hp
+        self.strength = strength
+        self.color = color 
+        self.name = name
+
+class playercreator:
+    def __init__(self, hp, strength):
+        self.hp = hp 
+        self.strength = strength 
+    
+
+
+class itemcreator:
+    def __init__(self, itemname, itemstrength, ):
+        self.itemstrength = itemstrength
+        self.itemname = itemname
+
+def randomitemcreator():
+    list = ("Katana", "Battle Axe", "Baguette", "nunchucks", "Pocket knife") 
+    return itemcreator(rand.choice(list), rand.randint(1,3))
+        
+
+    
+    
+
+def strid(player,):
+    monster = monstercreator(rand.randint(40,130), rand.randint(7,25), rand.choice(["darkred", "brown", "albino"]), rand.choice(["serpent", "mutaded bat", "flesh eating hog"]))
+    if player.strength >= monster.strength:
+        print(f"let's go, You defeated the monster!!")
+        backpack = []
+        backpack.append(itemcreator(rand.choice(["Katana", "Battle Axe", "Baguette", "nunchucks", "Pocket knife", "Mystical Dagger", "Flameable Torch", "Double-Edged Sword"]), rand.randint(7,25)))
+        loot = randomitemcreator()
+        print(f"You found a {loot.itemname} with {loot.itemstrength} strength in the remainings of the monster!")
+        player.strength += loot.itemstrength
     else:
-        print("du förlorade")
-# ej klar behind_door
-def behind_door(playerhp, monsterhp, playerstrength, monsterstrength, backpack):
-    händelser = list[monster, crate, trap]
+        print("You lost the battle against the monster, get better gear to defeat him next time")
+        time.sleep(2)
+        print("You are not at max health anymore, check your stats to see your hp and be careful!")
+        player.hp -= 15
+    
+
+    return
+
+
+
+def trap(player):
+    trapodds = rand.randint(1,5)
+    if trapodds == 1 or trapodds == 2 or trapodds == 3:
+        print("You fell in to the trap and lost 15hp... ")
+        print("HEYY, you have to be more careful in the future!!  ")
+        player.hp -= 15
+        return player
+    else:
+        print("OMG YOU ARE SO LUCKY you managed to get away from the trap!!")
+
+
+
 
 def main():
+    global backpack 
 
-    print("Hello traveler, you have been captured. To escape this maze you will have to choose the right door.")
+    backpack = []
+    backpack.append(itemcreator(rand.choice(["Mystical Dagger", "Flameable Torch", "Double-Edged Sword"]), rand.randint(7,25)))
+    winning_strength = 100
+
+    print("Hello traveler, you have been captured in this maze. To escape you will have to choose the right door at defeat the creature that captured you..")
     playername = input("What is your name?")
-    playerhp = 100
-    playerstrength = 10 
+    player = playercreator(60, 17) 
     
-    i = 0
-
-    while i < len(backpack):
-        print(backpack[i])
-        i += 1
 
   
+    
 
-
-    print(f"""Hello {playername} you have {playerstrength} strength and {playerhp} hp.
+    print(f"""Hello {playername} you have {player.strength} strength and {player.hp} hp.
             We have done some research in the maze and there is a lot of different creatures roaming different areas of the maze. 
-            There is huge serpents, mutaded bats, flesh eating hogs.
-            You will have to fight them or they will kill you. 
-            You will also discover crates which contains loot that you can use in battles. The maze is also full of traps so keep your eyes open.""")
+            There is huge serpents, mutaded bats and flesh eating hogs.
+            You will have to fight them or they will kill you.""") 
+    time.sleep(6)
+
+    print("""You will also discover crates which contains loot that you can use in battles. The maze is also full of traps so keep your eyes open.
+         In order to escape the maze you must get to 100 strength points.""")
+
+    
+           
+
+    time.sleep(7)
 
 
-    while playerhp >= 0:
+    while player.hp > 0 and player.strength < winning_strength:
         print("""What do you want to do?
-            1 = choose a door
+            1 = Choose a door
             2 = Check the backpack
             3 = Check the stats """)
         
         val = input()
 
         if val == "1":
-            doorchoser()
+            doorchoser(player)
+        
+        elif val == "2":
+            for x in range(len(backpack)):
+                print(f"You have a {backpack[x].itemname} with {backpack[x].itemstrength} strength.")
+
+                
+            print("Press ENTER to go back")
+            input()
+
+        elif val == "3":
+            print(f"Player Stats - HP: {player.hp}, Strength: {player.strength}")
+
+        else:
+            print("Please enter valid input")
+
+    if player.strength >= winning_strength: 
+        print("""You have gained enough strength to escape the maze.
+                 You win!
+                 GAME COMPLETE""")
+        
+    if player.hp <= 0: print("You lost all your health, GAME OVER")
 
 
-
-def doorchoser():
+def doorchoser(player):
 
     print("""Which door?
         1 = door one
@@ -68,32 +138,31 @@ def doorchoser():
     if val == "1" or val == "2" or val == "3":
         slumptal = rand.randint(1,3)
         if slumptal == 1:
-            print("It's a MONSTER!!! you have to fight it.")
-            strid(playerhp, monsterhp)
+            monster = monstercreator(rand.randint(40, 130), rand.randint(7, 25), rand.choice(["darkred", "brown", "albino"]),
+                                     rand.choice(["serpents", "mutaded bat", "flesh eating hog"]))
+            print(f"It's a {monster.color} {monster.name} with {monster.hp} hp and {monster.strength} strength!!")
+            strid(player)
+        
         elif slumptal == 2:
             print("OOoh look it's a crate!")
+            loot = randomitemcreator()
+            backpack.append(loot) 
+            player.strength += loot.itemstrength
+            print(f"""You found a {loot.itemname} with {loot.itemstrength} strength!!
+                  That's just great now your strength is higher.""")
+        elif slumptal == 3:
+            print("Oh no whatchout it's a trap!")
+            trap(player)
         else:
-            print("Oh no whatout it's a trap")    
-   
+            print("Please enter a valid input")
+            doorchoser()
+
+
 
 
 main()
-    # hjältestr=10
-    # Fiendestr=7
-    # Hjälteliv=100
 
-    # strid(Hjältestr, Fiendestr, Hjälteliv)
-    # Hjälteliv = strid(hs, fs, hl)
-    # if hs>=fs:
-    # Print("Du vann")
-    # return
-    # else:
-    # print("du förlorade 1 hp")
-    # hl-=1
-    # return hl
-    # )
 
-    # def strid(playerhp, playerstrength, enemystrength):
-    # print(f"You have {playerstrength} strength.")
+
 
 
